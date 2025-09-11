@@ -1,0 +1,81 @@
+Start testing: Sep 10 18:49 AEST
+----------------------------------------------------------
+1/3 Testing: PIDBasic.ProportionalOnly
+1/3 Test: PIDBasic.ProportionalOnly
+Command: "/home/crisp04/projects/pid-motor-control-esp32/host_tests/build/pid_test" "--gtest_filter=PIDBasic.ProportionalOnly" "--gtest_also_run_disabled_tests"
+Directory: /home/crisp04/projects/pid-motor-control-esp32/host_tests/build
+"PIDBasic.ProportionalOnly" start time: Sep 10 18:49 AEST
+Output:
+----------------------------------------------------------
+Note: Google Test filter = PIDBasic.ProportionalOnly
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from PIDBasic
+[ RUN      ] PIDBasic.ProportionalOnly
+[       OK ] PIDBasic.ProportionalOnly (0 ms)
+[----------] 1 test from PIDBasic (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"PIDBasic.ProportionalOnly" end time: Sep 10 18:49 AEST
+"PIDBasic.ProportionalOnly" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/3 Testing: PIDBasic.IntegralAccumulation
+2/3 Test: PIDBasic.IntegralAccumulation
+Command: "/home/crisp04/projects/pid-motor-control-esp32/host_tests/build/pid_test" "--gtest_filter=PIDBasic.IntegralAccumulation" "--gtest_also_run_disabled_tests"
+Directory: /home/crisp04/projects/pid-motor-control-esp32/host_tests/build
+"PIDBasic.IntegralAccumulation" start time: Sep 10 18:49 AEST
+Output:
+----------------------------------------------------------
+Note: Google Test filter = PIDBasic.IntegralAccumulation
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from PIDBasic
+[ RUN      ] PIDBasic.IntegralAccumulation
+[       OK ] PIDBasic.IntegralAccumulation (0 ms)
+[----------] 1 test from PIDBasic (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"PIDBasic.IntegralAccumulation" end time: Sep 10 18:49 AEST
+"PIDBasic.IntegralAccumulation" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/3 Testing: PIDBasic.SaturationAntiWindup
+3/3 Test: PIDBasic.SaturationAntiWindup
+Command: "/home/crisp04/projects/pid-motor-control-esp32/host_tests/build/pid_test" "--gtest_filter=PIDBasic.SaturationAntiWindup" "--gtest_also_run_disabled_tests"
+Directory: /home/crisp04/projects/pid-motor-control-esp32/host_tests/build
+"PIDBasic.SaturationAntiWindup" start time: Sep 10 18:49 AEST
+Output:
+----------------------------------------------------------
+Note: Google Test filter = PIDBasic.SaturationAntiWindup
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from PIDBasic
+[ RUN      ] PIDBasic.SaturationAntiWindup
+[       OK ] PIDBasic.SaturationAntiWindup (0 ms)
+[----------] 1 test from PIDBasic (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"PIDBasic.SaturationAntiWindup" end time: Sep 10 18:49 AEST
+"PIDBasic.SaturationAntiWindup" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Sep 10 18:49 AEST

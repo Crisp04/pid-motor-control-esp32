@@ -1,5 +1,6 @@
 #include "pid.h"
 #include <algorithm>
+#include <iostream>
 
 PID::PID(double kp, double ki, double kd, double out_min, double out_max)
     : kp_(kp), ki_(ki), kd_(kd), integrator_(0.0), prev_measurement_(0.0), out_min_(out_min), out_max_(out_max) {}

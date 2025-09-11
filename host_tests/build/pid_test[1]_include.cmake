@@ -1,0 +1,5 @@
+if(EXISTS "/home/crisp04/projects/pid-motor-control-esp32/host_tests/build/pid_test[1]_tests.cmake")
+  include("/home/crisp04/projects/pid-motor-control-esp32/host_tests/build/pid_test[1]_tests.cmake")
+else()
+  add_test(pid_test_NOT_BUILT pid_test_NOT_BUILT)
+endif()

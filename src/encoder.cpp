@@ -1,58 +1,96 @@
 #include "encoder.h"
-#include <Arduino.h>
 
-Encoder* Encoder::instanceA = nullptr;
+Encoder* Encoder::instance_ = nullptr;
 
-Encoder::Encoder(int pinA, int pinB, uint32_t cpr) : pinA_(pinA), pinB_(pinB), count_(0), last_state_(0), cpr_(cpr) {}
+Encoder::Encoder(uint8_t pinA, uint8_t pinB, uint32_t cpr)
+    : pinA_(pinA), pinB_(pinB), count_(0), lastState_(0), cpr_(cpr),
+      lock_(portMUX_INITIALIZER_UNLOCKED)
+{}
 
 void Encoder::begin() {
+    // store singleton instance
+    instance_ = this;
+
     pinMode(pinA_, INPUT_PULLUP);
     pinMode(pinB_, INPUT_PULLUP);
-    last_state_ = (digitalRead(pinA_) << 1) | digitalRead(pinB_);
-    instanceA = this;
-    attachInterruptArg(digitalPinToInterrupt(pinA_), (void(*)(void*))isrA, nullptr, CHANGE);
-    attachInterruptArg(digitalPinToInterrupt(pinB_), (void(*)(void*))isrB, nullptr, CHANGE);
+
+    // read initial state
+    uint8_t a = digitalRead(pinA_);
+    uint8_t b = digitalRead(pinB_);
+    lastState_ = (a << 1) | b;
+
+    // attach static ISR
+    attachInterrupt(digitalPinToInterrupt(pinA_), Encoder::isrA, CHANGE);
+    attachInterrupt(digitalPinToInterrupt(pinB_), Encoder::isrB, CHANGE);
 }
 
-// Returns delta counts since last call and resets internal count (thread-safe-ish)
 int32_t Encoder::getAndResetDelta() {
-    noInterrupts();
+    portENTER_CRITICAL(&lock_);
     int64_t val = count_;
     count_ = 0;
-    interrupts();
+    portEXIT_CRITICAL(&lock_);
     return (int32_t)val;
 }
 
 int64_t Encoder::getCount() {
-    int64_t v;
-    noInterrupts();
-    v = count_;
-    interrupts();
-    return v;
+    portENTER_CRITICAL(&lock_);
+    int64_t val = count_;
+    portEXIT_CRITICAL(&lock_);
+    return val;
 }
 
+// ===================
+// Static ISR functions
+// ===================
 void IRAM_ATTR Encoder::isrA() {
-    if (!instanceA) return;
-    uint8_t a = digitalRead(instanceA->pinA_);
-    uint8_t b = digitalRead(instanceA->pinB_);
+    if (!instance_) return;
+
+    uint8_t a = digitalRead(instance_->pinA_);
+    uint8_t b = digitalRead(instance_->pinB_);
     uint8_t state = (a << 1) | b;
+
+    if (state == instance_->lastState_) return;
+
     int8_t delta = 0;
-    // quadrature state machine
-    if (state == instanceA->last_state_) return;
-    // clockwise transitions
-    if ((instanceA->last_state_ == 0 && state == 1) ||
-        (instanceA->last_state_ == 1 && state == 3) ||
-        (instanceA->last_state_ == 3 && state == 2) ||
-        (instanceA->last_state_ == 2 && state == 0)) {
+    // CW transitions
+    if ((instance_->lastState_ == 0 && state == 1) ||
+        (instance_->lastState_ == 1 && state == 3) ||
+        (instance_->lastState_ == 3 && state == 2) ||
+        (instance_->lastState_ == 2 && state == 0)) {
         delta = 1;
     } else {
         delta = -1;
     }
-    instanceA->count_ += delta;
-    instanceA->last_state_ = state;
+
+    portENTER_CRITICAL_ISR(&instance_->lock_);
+    instance_->count_ += delta;
+    instance_->lastState_ = state;
+    portEXIT_CRITICAL_ISR(&instance_->lock_);
 }
 
 void IRAM_ATTR Encoder::isrB() {
-    // same handler as A to keep simple (reads both pins)
-    isrA();
+    // same as isrA (could also call a common handler)
+    if (!instance_) return;
+
+    uint8_t a = digitalRead(instance_->pinA_);
+    uint8_t b = digitalRead(instance_->pinB_);
+    uint8_t state = (a << 1) | b;
+
+    if (state == instance_->lastState_) return;
+
+    int8_t delta = 0;
+    // CW transitions
+    if ((instance_->lastState_ == 0 && state == 1) ||
+        (instance_->lastState_ == 1 && state == 3) ||
+        (instance_->lastState_ == 3 && state == 2) ||
+        (instance_->lastState_ == 2 && state == 0)) {
+        delta = 1;
+    } else {
+        delta = -1;
+    }
+
+    portENTER_CRITICAL_ISR(&instance_->lock_);
+    instance_->count_ += delta;
+    instance_->lastState_ = state;
+    portEXIT_CRITICAL_ISR(&instance_->lock_);
 }

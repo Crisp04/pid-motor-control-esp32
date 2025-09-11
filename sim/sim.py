@@ -17,11 +17,11 @@ MAX_RPM_AT_1 = 6000.0  # motor free speed scaled to duty=1.0
 
 LOOP_HZ = 200.0
 DT = 1.0 / LOOP_HZ
-TOTAL_SEC = 5.0
+TOTAL_SEC = 2.0
 
 # simple PID (same semantics as C++ PID)
 class PID:
-    def __init__(self, kp=0.005, ki=0.03, kd=0.0, out_min=0.0, out_max=1.0):
+    def __init__(self, kp, ki, kd, out_min=-1.0, out_max=1.0):
         self.kp=kp; self.ki=ki; self.kd=kd
         self.out_min=out_min; self.out_max=out_max
         self.integrator=0.0
@@ -86,8 +86,8 @@ def plot_csv(data, out_png="sim_plot.png"):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--kp", type=float, default=0.005)
-    parser.add_argument("--ki", type=float, default=0.03)
+    parser.add_argument("--kp", type=float, default=0.0031)
+    parser.add_argument("--ki", type=float, default=0.013)
     parser.add_argument("--kd", type=float, default=0.0)
     parser.add_argument("--out", default="sim_output.csv")
     parser.add_argument("--plot", default="sim_plot.png")

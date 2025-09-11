@@ -1,3 +1,4 @@
 {
-    "cmake.sourceDirectory": "C:/Users/crisp/Desktop/VS CODE/pid-motor-control-esp32/host_tests"
+    "cmake.sourceDirectory": "/home/crisp04/projects/pid-motor-control-esp32/host_tests",
+    "idf.pythonInstallPath": "/usr/bin/python3"
 }
