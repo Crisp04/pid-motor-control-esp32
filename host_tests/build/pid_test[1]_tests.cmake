@@ -1,7 +1,0 @@
-add_test( PIDBasic.ProportionalOnly /home/crisp04/projects/pid-motor-control-esp32/host_tests/build/pid_test [==[--gtest_filter=PIDBasic.ProportionalOnly]==] --gtest_also_run_disabled_tests)
-set_tests_properties( PIDBasic.ProportionalOnly PROPERTIES WORKING_DIRECTORY /home/crisp04/projects/pid-motor-control-esp32/host_tests/build SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==])
-add_test( PIDBasic.IntegralAccumulation /home/crisp04/projects/pid-motor-control-esp32/host_tests/build/pid_test [==[--gtest_filter=PIDBasic.IntegralAccumulation]==] --gtest_also_run_disabled_tests)
-set_tests_properties( PIDBasic.IntegralAccumulation PROPERTIES WORKING_DIRECTORY /home/crisp04/projects/pid-motor-control-esp32/host_tests/build SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==])
-add_test( PIDBasic.SaturationAntiWindup /home/crisp04/projects/pid-motor-control-esp32/host_tests/build/pid_test [==[--gtest_filter=PIDBasic.SaturationAntiWindup]==] --gtest_also_run_disabled_tests)
-set_tests_properties( PIDBasic.SaturationAntiWindup PROPERTIES WORKING_DIRECTORY /home/crisp04/projects/pid-motor-control-esp32/host_tests/build SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==])
-set( pid_test_TESTS PIDBasic.ProportionalOnly PIDBasic.IntegralAccumulation PIDBasic.SaturationAntiWindup)
