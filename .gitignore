@@ -9,3 +9,5 @@ build/
 */build/
 CMakeFiles/
 CMakeCache.txt
+my_log.csv
+my_plot.png
