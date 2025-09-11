@@ -1,4 +1,0 @@
-PIDBasic.ProportionalOnly 1 0.00620766
-PIDBasic.IntegralAccumulation 2 0.00288374
-PIDBasic.SaturationAntiWindup 5 0.00114405
----
